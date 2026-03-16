@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Puneet Faujdar | Core Portal</title>
+
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f172a">
+
+<link rel="icon" type="image/png" sizes="16x16" href="icon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:#0f172a;
+color:white;
+overflow-x:hidden;
+}
+
+/* LOADER */
+
+#loader{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#020617;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+font-size:22px;
+letter-spacing:2px;
+transition:4.0s;
+}
+
+/* PARTICLES */
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+/* NAVBAR */
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 8%;
+background:rgba(0,0,0,.4);
+backdrop-filter:blur(10px);
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+nav h2{
+color:#38bdf8;
+}
+
+nav ul{
+display:flex;
+gap:20px;
+list-style:none;
+}
+
+nav a{
+text-decoration:none;
+color:white;
+font-size:14px;
+}
+
+nav a:hover{
+color:#38bdf8;
+}
+
+.toggle{
+background:#38bdf8;
+border:none;
+padding:8px 14px;
+border-radius:6px;
+cursor:pointer;
+}
+
+/* HERO */
+
+.hero{
+min-height:90vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:80px 8%;
+transition:transform .2s;
+}
+
+.hero h1{
+font-size:50px;
+}
+
+.hero span{
+color:#38bdf8;
+}
+
+.hero p{
+margin-top:15px;
+max-width:600px;
+margin-inline:auto;
+line-height:1.7;
+min-height:28px;
+}
+
+.hero-btns{
+margin-top:30px;
+}
+
+.hero-btns a{
+padding:12px 25px;
+background:#38bdf8;
+color:black;
+border-radius:6px;
+margin:5px;
+text-decoration:none;
+}
+
+
+/* SECTION */
+
+section{
+padding:80px 8%;
+}
+
+.title{
+text-align:center;
+font-size:32px;
+margin-bottom:40px;
+}
+
+/* GLASS CARD */
+
+.card{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+padding:25px;
+border-radius:10px;
+}
+
+/* ABOUT */
+
+.about p{
+max-width:700px;
+margin:auto;
+text-align:center;
+line-height:1.7;
+}
+
+/* SKILLS */
+
+.skills{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+}
+
+.bar{
+height:6px;
+background:#1e293b;
+border-radius:10px;
+overflow:hidden;
+}
+
+.bar div{
+height:100%;
+background:#38bdf8;
+width:0;
+transition:width 1.5s ease;
+}
+
+/* PROJECTS */
+
+.projects{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
+
+.project{
+background:rgba(0,0,0,.4);
+padding:20px;
+border-radius:8px;
+cursor:pointer;
+transition:transform .2s;
+transform-style:preserve-3d;
+}
+
+.project:hover{
+transform:translateY(-6px);
+}
+
+/* TIMELINE */
+
+.timeline{
+max-width:700px;
+margin:auto;
+}
+
+.timeline div{
+background:rgba(0,0,0,.4);
+padding:15px;
+margin:15px 0;
+border-left:4px solid #38bdf8;
+}
+
+/* CONTACT */
+
+.contact{
+text-align:center;
+}
+
+.contact a{
+display:inline-block;
+margin:10px;
+padding:10px 20px;
+background:#38bdf8;
+color:black;
+border-radius:6px;
+text-decoration:none;
+font-weight:500;
+transition:0.3s;
+}
+
+.contact a:hover{
+transform:translateY(-4px) scale(1.05);
+box-shadow:0 0 15px #38bdf8, 0 0 30px #38bdf8;
+}
+
+
+.contact a:active{
+transform:scale(0.96);
+box-shadow:0 0 8px #38bdf8;
+}
+
+/* POPUP */
+
+#popup{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.8);
+justify-content:center;
+align-items:center;
+}
+
+.popup-box{
+background:#0f172a;
+padding:30px;
+border-radius:10px;
+max-width:400px;
+text-align:center;
+}
+
+/* FOOTER */
+
+footer{
+text-align:center;
+padding:25px;
+background:#020617;
+margin-top:40px;
+}
+
+/* SCROLL ANIMATION */
+
+.hidden{
+opacity:0;
+transform:translateY(30px);
+transition:1s;
+}
+
+.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* LIGHT MODE */
+
+.light{
+background:#f1f5f9;
+color:black;
+}
+
+.light nav{
+background:#e2e8f0;
+}
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width:768px){
+
+nav{
+flex-direction:column;
+gap:10px;
+}
+
+nav ul{
+flex-wrap:wrap;
+justify-content:center;
+gap:12px;
+}
+
+.hero{
+padding:60px 20px;
+}
+
+.hero h1{
+font-size:34px;
+}
+
+.hero p{
+font-size:14px;
+}
+
+section{
+padding:60px 20px;
+}
+
+.title{
+font-size:26px;
+}
+
+.skills{
+grid-template-columns:1fr;
+}
+
+.projects{
+grid-template-columns:1fr;
+}
+
+.timeline{
+padding:0 10px;
+}
+
+}
+
+.hero-logo{
+width:120px;
+height:120px;
+border-radius:50%;
+margin-bottom:20px;
+border:3px solid #38bdf8;
+box-shadow:0 0 25px #38bdf8;
+object-fit:cover;
+animation:logoFloat 4s ease-in-out infinite;
+}
+
+@keyframes logoFloat{
+
+0%{
+transform:translateY(0px);
+}
+
+50%{
+transform:translateY(-10px);
+}
+
+100%{
+transform:translateY(0px);
+}
+
+}
+
+.hero-logo{
+width:90px;
+height:90px;
+}
+
+.visitor-box{
+margin-top:40px;
+text-align:center;
+padding:20px;
+background:rgba(255,255,255,0.05);
+border-radius:12px;
+border:1px solid rgba(255,255,255,0.1);
+max-width:220px;
+margin-left:auto;
+margin-right:auto;
+font-size:18px;
+}
+
+#visitor-count{
+font-size:32px;
+margin-top:8px;
+color:#38bdf8;
+font-weight:600;
+}
+
+.github-stats{
+display:flex;
+flex-wrap:wrap;
+gap:20px;
+justify-content:center;
+}
+
+.github-stats img{
+max-width:420px;
+width:100%;
+border-radius:10px;
+}
+
+
+footer{
+text-align:center;
+padding:25px;
+background:#020617;
+margin-top:40px;
+color:#38bdf8;
+text-shadow:0 0 10px #38bdf8;
+}
+
+</style>
+</head>
+
+<body>
+  
+
+<div id="loader">Loading Puneet Core...</div>
+
+<canvas id="particles"></canvas>
+
+<nav>
+
+<h2>PUNEET FAUJDAR</h2>
+
+<ul>
+<li><a href="#about">About</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#projects">Projects</a></li>
+<li><a href="#journey">Journey</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+
+
+
+</nav>
+
+<div class="hero">
+
+<div>
+   
+<img src="icon-512.png" class="hero-logo">
+
+<h1>Hello I'm <span>Puneet</span></h1>
+
+<p id="typing"></p>
+
+<div class="hero-btns">
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+</div>
+
+</div>
+
+</div>
+
+<section id="about" class="about hidden">
+
+<h2 class="title">About Me</h2>
+
+<div class="card">
+
+<p>
+I'm Puneet Faujdar, a BCA student passionate about web development and cybersecurity.
+I enjoy building modern websites and learning how digital systems work.
+</p>
+
+</div>
+
+</section>
+
+<section id="skills" class="hidden">
+
+<h2 class="title">Skills</h2>
+
+<div class="skills">
+
+<div>
+
+HTML
+<div class="bar"><div style="width:90%"></div></div>
+</div>
+
+<div>
+CSS
+<div class="bar"><div style="width:85%"></div></div>
+</div>
+
+<div>
+JavaScript
+<div class="bar"><div style="width:65%"></div></div>
+</div>
+
+<div>
+C Programming
+<div class="bar"><div style="width:70%"></div></div>
+</div>
+
+<div>
+Linux Basics
+<div class="bar"><div style="width:60%"></div></div>
+</div>
+
+<div>
+Networking Basics
+<div class="bar"><div style="width:80%"></div></div>
+</div>
+ 
+
+</div>
+
+</section>
+
+<section id="projects" class="hidden">
+
+<h2 class="title">Projects</h2>
+
+<div class="projects">
+
+<div class="project" onclick="openProject('Core Portal','Accesing my digital workspace.')">
+<h3>Core Portal</h3>
+<p>Accesing my digital workspace.</p>
+</div>
+
+<div class="project" onclick="openProject('Cyber Learning','Website for cybersecurity notes.')">
+<h3>Cyber Learning</h3>
+<p>Website for cybersecurity notes.</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="hidden">
+
+<h2 class="title">GitHub Stats</h2>
+
+<div class="github-stats">
+
+<img src="https://github-readme-stats.vercel.app/api?username=Puneetfaujdar2715&show_icons=true&theme=tokyonight">
+
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Puneetfaujdar2715&layout=compact&theme=tokyonight">
+
+</div>
+
+</section>
+
+<section class="hidden">
+
+<h2 class="title">GitHub Projects</h2>
+
+<div id="github-projects" class="projects"></div>
+
+</section>
+
+<section id="journey" class="hidden">
+
+<h2 class="title">My Journey</h2>
+
+<div class="timeline">
+
+<div>2024 — Started learning computers</div>
+<div>2025 — Joined BCA 
+</div>
+<div>2026 — Learning Web Development</div>
+<div>Future — Exploring Cybersecurity</div>
+
+</div>
+
+</section>
+
+<section id="contact" class="contact hidden">
+
+<h2 class="title">Contact</h2>
+
+<a href="mailto:puneetfaujdar007@gmail.com">📧 Email</a>
+<a href="https://github.com/Puneetfaujdar2715">💻 GitHub</a>
+<a href="https://linkedin.com/in/puneet-faujdar">🔗 LinkedIn</a>
+
+<div class="visitor-box">
+👁 Visitors
+<div id="visitor-count">...</div>
+</div>
+
+</section>
+
+<div id="popup">
+
+<div class="popup-box">
+
+<h3 id="pTitle"></h3>
+<p id="pDesc"></p>
+
+<button onclick="closePopup()">Close</button>
+
+</div>
+
+</div>
+
+<footer>
+
+Designed & Developed by Puneet
+
+</footer>
+
+<script>
+
+/* LOADER */
+
+window.addEventListener("load",()=>{
+document.getElementById("loader").style.opacity="0";
+
+setTimeout(()=>{
+document.getElementById("loader").style.display="none";
+},4000);
+});
+
+/* TYPING ANIMATION */
+
+const text="Web Developer | Cybersecurity Learner | BCA Student";
+let i=0;
+
+function type(){
+
+if(i<text.length){
+
+document.getElementById("typing").innerHTML+=text.charAt(i);
+
+i++;
+
+setTimeout(type,60);
+
+}
+
+}
+
+type();
+
+
+
+/* SCROLL ANIMATION */
+
+const observer=new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+}
+
+});
+
+});
+
+document.querySelectorAll(".hidden").forEach(el=>{
+observer.observe(el);
+});
+
+
+
+
+
+const skillBars=document.querySelectorAll(".bar div");
+
+const skillObserver=new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.style.width=entry.target.dataset.width;
+
+}
+
+});
+
+});
+
+skillBars.forEach(bar=>{
+
+bar.dataset.width=bar.style.width;
+
+bar.style.width="0";
+
+skillObserver.observe(bar);
+
+});
+
+
+
+/* PARALLAX HERO */
+
+document.addEventListener("mousemove",(e)=>{
+
+let x=(window.innerWidth/2-e.pageX)/40;
+let y=(window.innerHeight/2-e.pageY)/40;
+
+document.querySelector(".hero").style.transform=
+`rotateY(${x}deg) rotateX(${y}deg)`;
+
+});
+
+/* PROJECT POPUP */
+
+function openProject(title,desc){
+
+document.getElementById("popup").style.display="flex";
+
+document.getElementById("pTitle").innerText=title;
+document.getElementById("pDesc").innerText=desc;
+
+}
+
+function closePopup(){
+document.getElementById("popup").style.display="none";
+}
+
+/* PARTICLES */
+
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+
+for(let i=0;i<80;i++){
+
+particles.push({
+
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+size:Math.random()*2,
+speedX:Math.random()*0.5,
+speedY:Math.random()*0.5
+
+});
+
+}
+
+function animate(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+particles.forEach(p=>{
+
+ctx.fillStyle="#38bdf8";
+
+ctx.fillRect(p.x,p.y,p.size,p.size);
+
+p.x+=p.speedX;
+p.y+=p.speedY;
+
+if(p.x>canvas.width)p.x=0;
+if(p.y>canvas.height)p.y=0;
+
+});
+
+requestAnimationFrame(animate);
+
+}
+
+animate();
+
+if ("serviceWorker" in navigator) {
+navigator.serviceWorker.register("sw.js")
+.then(() => console.log("Service Worker Registered"));
+}
+
+
+document.querySelectorAll(".project").forEach(card=>{
+
+card.addEventListener("mousemove",(e)=>{
+
+const rect=card.getBoundingClientRect();
+
+const x=e.clientX-rect.left;
+const y=e.clientY-rect.top;
+
+const centerX=rect.width/2;
+const centerY=rect.height/2;
+
+const rotateX=-(y-centerY)/10;
+const rotateY=(x-centerX)/10;
+
+card.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+});
+
+card.addEventListener("mouseleave",()=>{
+
+card.style.transform="rotateX(0) rotateY(0)";
+
+});
+
+});
+
+fetch("https://api.countapi.xyz/hit/puneet-portfolio-website/visits")
+.then(res=>res.json())
+.then(data=>{
+document.getElementById("visitor-count").innerText=data.value;
+})
+.catch(()=>{
+document.getElementById("visitor-count").innerText="1";
+});
+
+fetch("https://api.github.com/users/Puneetfaujdar2715/repos")
+.then(res=>res.json())
+.then(data=>{
+
+const container=document.getElementById("github-projects");
+
+data.slice(0,6).forEach(repo=>{
+
+const div=document.createElement("div");
+
+div.className="project";
+
+div.innerHTML=`
+<h3>${repo.name}</h3>
+<p>${repo.description || "GitHub Repository"}</p>
+<a href="${repo.html_url}" target="_blank">View Project</a>
+`;
+
+container.appendChild(div);
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
