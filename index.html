@@ -564,27 +564,9 @@ Networking Basics
 
 </section>
 
-<section class="hidden">
 
-<h2 class="title">GitHub Stats</h2>
 
-<div class="github-stats">
 
-<img src="https://github-readme-stats.vercel.app/api?username=Puneetfaujdar2715&show_icons=true&theme=tokyonight">
-
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Puneetfaujdar2715&layout=compact&theme=tokyonight">
-
-</div>
-
-</section>
-
-<section class="hidden">
-
-<h2 class="title">GitHub Projects</h2>
-
-<div id="github-projects" class="projects"></div>
-
-</section>
 
 <section id="journey" class="hidden">
 
@@ -610,10 +592,7 @@ Networking Basics
 <a href="https://github.com/Puneetfaujdar2715">💻 GitHub</a>
 <a href="https://linkedin.com/in/puneet-faujdar">🔗 LinkedIn</a>
 
-<div class="visitor-box">
-👁 Visitors
-<div id="visitor-count">...</div>
-</div>
+
 
 </section>
 
@@ -829,38 +808,8 @@ card.style.transform="rotateX(0) rotateY(0)";
 
 });
 
-fetch("https://api.countapi.xyz/hit/puneet-portfolio-website/visits")
-.then(res=>res.json())
-.then(data=>{
-document.getElementById("visitor-count").innerText=data.value;
-})
-.catch(()=>{
-document.getElementById("visitor-count").innerText="1";
-});
 
-fetch("https://api.countapi.xyz/hit/puneetfaujdar-portfolio/visits")
-.then(res=>res.json())
-.then(data=>{
 
-const container=document.getElementById("github-projects");
-
-data.slice(0,6).forEach(repo=>{
-
-const div=document.createElement("div");
-
-div.className="project";
-
-div.innerHTML=`
-<h3>${repo.name}</h3>
-<p>${repo.description || "GitHub Repository"}</p>
-<a href="${repo.html_url}" target="_blank">View Project</a>
-`;
-
-container.appendChild(div);
-
-});
-
-});
 
 </script>
 
